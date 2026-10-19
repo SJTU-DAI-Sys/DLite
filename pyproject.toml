@@ -8,12 +8,17 @@ version = "0.1.0"
 description = "DLite speculative decoding inference for Qwen3"
 readme = "README.md"
 requires-python = ">=3.11"
+license = "MIT"
 dependencies = [
   "safetensors>=0.4",
   "torch==2.9.1",
   "transformers==5.20.1",
   "typing-extensions>=4.10",
 ]
+
+[project.urls]
+Repository = "https://github.com/SJTU-DAI-Sys/DLite"
+Issues = "https://github.com/SJTU-DAI-Sys/DLite/issues"
 
 [project.optional-dependencies]
 flash-attn = ["flash-attn"]
