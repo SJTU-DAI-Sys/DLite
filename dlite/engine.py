@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass
-from typing import Iterable, Mapping, Sequence
 
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -33,9 +33,7 @@ class DLiteEngine:
 
     def __init__(self, target, draft: DLiteDraftModel, tokenizer) -> None:
         if not draft.is_student:
-            raise ValueError(
-                "The inference release requires a pivot_q_student checkpoint."
-            )
+            raise ValueError("The inference release requires a student checkpoint.")
         self.target = target
         self.draft = draft
         self.tokenizer = tokenizer
@@ -50,7 +48,7 @@ class DLiteEngine:
         dtype: torch.dtype = torch.bfloat16,
         attention_backend: str = "auto",
         trust_remote_code: bool = False,
-    ) -> "DLiteEngine":
+    ) -> DLiteEngine:
         attention = _resolve_attention(attention_backend)
         common = {
             "attn_implementation": attention,

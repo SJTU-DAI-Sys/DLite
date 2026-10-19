@@ -11,13 +11,24 @@ requires-python = ">=3.11"
 dependencies = [
   "safetensors>=0.4",
   "torch==2.9.1",
-  "transformers==4.57.1",
+  "transformers==5.20.1",
   "typing-extensions>=4.10",
 ]
 
 [project.optional-dependencies]
 flash-attn = ["flash-attn"]
 dev = ["pytest>=8", "ruff>=0.8"]
+benchmark = ["datasets>=3", "huggingface-hub>=0.30"]
+qwen35 = [
+  "causal-conv1d==1.7.0",
+  "flash-linear-attention[conv1d]==0.5.2",
+]
+
+[tool.uv]
+preview = true
+
+[tool.uv.extra-build-dependencies]
+causal-conv1d = [{ requirement = "torch", match-runtime = true }]
 
 [project.scripts]
 dlite = "dlite.cli:main"

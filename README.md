@@ -93,10 +93,10 @@ currently lists the following repositories:
 | --- | --- | --- |
 | [Qwen3-4B](https://huggingface.co/Qwen/Qwen3-4B) | [SJTU-DAI-Sys/Qwen3-4B-DLite](https://huggingface.co/SJTU-DAI-Sys/Qwen3-4B-DLite) | Weights available |
 | [Qwen3-8B](https://huggingface.co/Qwen/Qwen3-8B) | [SJTU-DAI-Sys/Qwen3-8B-DLite](https://huggingface.co/SJTU-DAI-Sys/Qwen3-8B-DLite) | Weights available |
-| [Qwen3.5-4B](https://huggingface.co/Qwen/Qwen3.5-4B) | [SJTU-DAI-Sys/Qwen3.5-4B-DLite](https://huggingface.co/SJTU-DAI-Sys/Qwen3.5-4B-DLite) | Model card only; weights pending |
+| [Qwen3-14B](https://huggingface.co/Qwen/Qwen3-14B) | [SJTU-DAI-Sys/Qwen3-14B-DLite](https://huggingface.co/SJTU-DAI-Sys/Qwen3-14B-DLite) | Weights available |
+| [Qwen3.5-4B](https://huggingface.co/Qwen/Qwen3.5-4B) | [SJTU-DAI-Sys/Qwen3.5-4B-DLite](https://huggingface.co/SJTU-DAI-Sys/Qwen3.5-4B-DLite) | Weights available |
 
-Availability checked on October 10, 2026. The current Python API and CLI target
-Qwen3; the Qwen3.5 entry is listed for release tracking.
+The Python API and CLI support Qwen3 and text-only Qwen3.5 targets.
 
 ## 🗺️ Roadmap
 
@@ -114,6 +114,9 @@ serving integrations, benchmarks, and inference optimizations are welcome throug
 ```bash
 pip install -e .
 ```
+
+For Qwen3.5 inference and the standard dataset benchmark, install the matching
+extras with `pip install -e ".[qwen35,benchmark]"`.
 
 FlashAttention 2 is optional. When installed, `attention_backend="auto"` uses
 it; otherwise DLite falls back to SDPA.
@@ -135,8 +138,10 @@ print(result.text)
 print(result.stats)
 ```
 
-The draft checkpoint must use `DLiteDraftModel`, `dlite_config`, architecture
-version `dlite_v1`, and `sequential_head: "rnn"`.
+The draft checkpoint must use `DLiteDraftModel`, `model_role: "student"`, and
+`sequential_head: "rnn"`. Architecture `dlite_v1` uses local anchor position 0;
+`dlite_v2` uses position 1. CHS remains at 0, and missing versions default to
+`dlite_v2`.
 
 ### CLI
 
@@ -152,18 +157,26 @@ For stochastic decoding, set a positive `--temperature` and optionally use
 
 ## 📊 Benchmarking
 
-Create a JSONL file with one `prompt` string per line, then run:
+Run a standard dataset alias (or pass a JSONL file with one `prompt` or `turns`
+field per line):
 
 ```bash
 dlite-benchmark \
   --target-model /path/to/Qwen3-8B \
   --draft-model /path/to/dlite-student \
-  --prompts prompts.jsonl \
-  --max-samples 100 \
+  --dataset gsm8k \
   --output benchmark-results/run.json
 ```
 
-The report includes generated-token throughput and mean accepted block length.
+LongBench aliases can be resolved with `--dataset-path-file`. The report runs
+target-only and DLite decoding on identical prompts and includes token-weighted
+speedup, throughput, and mean accepted block length.
+LongBench files that use a `.jsonl` suffix but contain a pretty-printed JSON
+array are parsed as arrays; reported samples count JSON records rather than
+physical text lines. The input files are not rewritten.
+Verification evaluates each draft block in one target forward pass. The benchmark
+does not compare target and DLite output tokens. Throughput uses each method's
+own generated-token count. Reports are saved to the path supplied with `--output`.
 
 ## 🗂️ Repository Layout
 
