@@ -1,32 +1,8 @@
-<p align="center">
-  <img src="assets/dlite.svg" alt="DLite logo" width="480">
-</p>
+![DLite logo](assets/dlite.svg)
 
-<h1 align="center">DLite: History-free Speculative Decoding for Agentic AI</h1>
+# DLite: History-free Speculative Decoding for Agentic AI
 
-<p align="center">
-  <a href="https://github.com/SJTU-DAI-Sys/DLite">
-    <img src="https://img.shields.io/badge/GitHub-DLite-181717.svg?logo=github" alt="GitHub repository">
-  </a>
-  <a href="https://huggingface.co/collections/SJTU-DAI-Sys/dlite">
-    <img src="https://img.shields.io/badge/Hugging%20Face-Models-FFD21E.svg?logo=huggingface" alt="Hugging Face models">
-  </a>
-  <a href="https://arxiv.org/pdf/2610.23787">
-    <img src="https://img.shields.io/badge/Paper-PDF-B31B1B.svg" alt="Read the paper">
-  </a>
-  <a href="pyproject.toml">
-    <img src="https://img.shields.io/badge/Version-v0.1.0-orange.svg" alt="Version 0.1.0">
-  </a>
-  <a href="LICENSE">
-    <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT license">
-  </a>
-  <a href="https://github.com/SJTU-DAI-Sys/DLite/issues">
-    <img src="https://img.shields.io/badge/Feedback-Issues-green.svg?logo=github" alt="Issues and feedback">
-  </a>
-  <a href="https://github.com/SJTU-DAI-Sys/DLite/pulls">
-    <img src="https://img.shields.io/badge/Contributions-welcome-brightgreen.svg?style=flat" alt="Contributions welcome">
-  </a>
-</p>
+![GitHub repository](https://img.shields.io/badge/GitHub-DLite-181717.svg?logo=github) [](https://huggingface.co/collections/SJTU-DAI-Sys/dlite)![Hugging Face models](https://img.shields.io/badge/Hugging%20Face-Models-FFD21E.svg?logo=huggingface)[ ](https://huggingface.co/collections/SJTU-DAI-Sys/dlite)![Read the paper](https://img.shields.io/badge/Paper-PDF-B31B1B.svg)[ ](https://huggingface.co/collections/SJTU-DAI-Sys/dlite)![Version 0.1.0](https://img.shields.io/badge/Version-v0.1.0-orange.svg)[ ](https://huggingface.co/collections/SJTU-DAI-Sys/dlite)![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)[ ](https://huggingface.co/collections/SJTU-DAI-Sys/dlite)![Issues and feedback](https://img.shields.io/badge/Feedback-Issues-green.svg?logo=github)[ ](https://huggingface.co/collections/SJTU-DAI-Sys/dlite)![Contributions welcome](https://img.shields.io/badge/Contributions-welcome-brightgreen.svg?style=flat)[
 
 **DLite** is a history-free speculative decoding framework for agentic AI.
 It reuses contextual hidden states from the target model to predict draft tokens
@@ -34,9 +10,11 @@ without maintaining a historical draft KV cache. A lightweight sequential head
 restores dependencies within each speculative block, while a two-stage training
 strategy aligns the draft model with the target model.
 
-This repository provides the inference release for Qwen3, including a Python API, a CLI, and a JSONL throughput benchmark. We provide a full-stack training and evaluation framework for DLite and other popular speculative decoding methods such as DFlash and DSpark in [LiteSpec](https://github.com/SJTU-DAI-Sys/LiteSpec). Draft checkpoints are available in our [Hugging Face collection](https://huggingface.co/collections/SJTU-DAI-Sys/dlite).
+This repository provides the inference release for Qwen3 and Qwen3.5, including a Python API, a CLI, and a JSONL throughput benchmark. We provide a full-stack training and evaluation framework for DLite and other popular speculative decoding methods such as DFlash and DSpark in [LiteSpec](https://github.com/SJTU-DAI-Sys/LiteSpec). Draft checkpoints are available in our [Hugging Face collection](https://huggingface.co/collections/SJTU-DAI-Sys/dlite).
 
 ## ⚡ Performance
+
+
 
 ### Evaluation
 
@@ -68,13 +46,13 @@ time.
 
 **Short input · 39 tokens**
 
-[![DLite short-input demo, animated preview](assets/demo-shortinput.gif)](attachments/short_with_len.mp4)
+![DLite short-input demo, animated preview](assets/demo-shortinput.gif)
 
 [▶ Watch the short-input video](attachments/short_with_len.mp4)
 
 **Long input · 46,704 tokens**
 
-[![DLite long-input demo, animated preview](assets/demo-longinput.gif)](attachments/long_with_len.mp4)
+![DLite long-input demo, animated preview](assets/demo-longinput.gif)
 
 [▶ Watch the long-input video](attachments/long_with_len.mp4)
 
@@ -87,12 +65,14 @@ DLite draft checkpoints are paired with specific target models. The
 [Hugging Face collection](https://huggingface.co/collections/SJTU-DAI-Sys/dlite)
 currently lists the following repositories:
 
+
 | Target model                                         | DLite draft checkpoint                                                                | Availability      |
 | ---------------------------------------------------- | ------------------------------------------------------------------------------------- | ----------------- |
 | [Qwen3-4B](https://huggingface.co/Qwen/Qwen3-4B)     | [SJTU-DAI-Sys/Qwen3-4B-DLite](https://huggingface.co/SJTU-DAI-Sys/Qwen3-4B-DLite)     | Weights available |
 | [Qwen3-8B](https://huggingface.co/Qwen/Qwen3-8B)     | [SJTU-DAI-Sys/Qwen3-8B-DLite](https://huggingface.co/SJTU-DAI-Sys/Qwen3-8B-DLite)     | Weights available |
 | [Qwen3-14B](https://huggingface.co/Qwen/Qwen3-14B)   | [SJTU-DAI-Sys/Qwen3-14B-DLite](https://huggingface.co/SJTU-DAI-Sys/Qwen3-14B-DLite)   | Weights available |
 | [Qwen3.5-4B](https://huggingface.co/Qwen/Qwen3.5-4B) | [SJTU-DAI-Sys/Qwen3.5-4B-DLite](https://huggingface.co/SJTU-DAI-Sys/Qwen3.5-4B-DLite) | Weights available |
+
 
 The Python API and CLI support Qwen3 and text-only Qwen3.5 targets.
 
@@ -120,6 +100,8 @@ FlashAttention 2 is optional. When installed, `attention_backend="auto"` uses
 it; otherwise DLite falls back to SDPA.
 
 ## 🚀 Quick Start
+
+
 
 ### Python API
 
