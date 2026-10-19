@@ -11,7 +11,7 @@
   <a href="https://huggingface.co/collections/SJTU-DAI-Sys/dlite">
     <img src="https://img.shields.io/badge/Hugging%20Face-Models-FFD21E.svg?logo=huggingface" alt="Hugging Face models">
   </a>
-  <a href="https://github.com/SJTU-DAI-Sys/DLite/blob/main/attachments/DLite_Arxiv.pdf">
+  <a href="https://arxiv.org/pdf/2610.23787">
     <img src="https://img.shields.io/badge/Paper-PDF-B31B1B.svg" alt="Read the paper">
   </a>
   <a href="pyproject.toml">
