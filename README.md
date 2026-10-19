@@ -64,8 +64,7 @@ For general-purpose workloads, Table 1 reports DLite's average acceptance length
 of **3.64–6.48 tokens** across math, coding, and chat benchmarks. Table 4 reports
 throughput at concurrency levels from 1 to 64. See the paper for all results and
 Appendix A.2 for agentic benchmark settings; BFCL-v3 results exclude tool-execution
-time. The chart data and plotting code are in
-[`assets/plot_performance.py`](assets/plot_performance.py).
+time.
 
 ### Demo
 
