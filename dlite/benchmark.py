@@ -12,6 +12,7 @@ import torch
 from transformers import DynamicCache
 
 from .engine import DLiteEngine
+from .modeling.kv_cache import make_target_cache
 
 SHORT_TEXT_SAMPLE_COUNTS = {
     "gsm8k": 128,
@@ -51,13 +52,19 @@ def _sample(logits: torch.Tensor, temperature: float) -> torch.Tensor:
 
 
 @torch.inference_mode()
-def target_generate(target, input_ids, max_new_tokens, stop_token_ids, temperature):
+def target_generate(
+    target, input_ids, max_new_tokens, stop_token_ids, temperature,
+    preallocate_kv_cache=False,
+):
     batch_size = input_ids.shape[0]
     num_input_tokens = input_ids.shape[1]
     max_length = num_input_tokens + max_new_tokens
     positions = torch.arange(max_length, device=input_ids.device).unsqueeze(0)
     positions = positions.expand(batch_size, -1)
-    cache = _new_target_cache(target)
+    cache = (
+        make_target_cache(target, max_length)
+        if preallocate_kv_cache else _new_target_cache(target)
+    )
     output = target(
         input_ids,
         position_ids=positions[:, :num_input_tokens],
@@ -292,6 +299,10 @@ def main() -> None:
         "--verification-mode", default="match", choices=["match", "rejection"]
     )
     parser.add_argument("--compile-sequential-head", action="store_true")
+    parser.add_argument(
+        "--preallocate-kv-cache", action="store_true",
+        help="Preallocate target KV during prefill for both baseline and DLite.",
+    )
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
     if args.max_samples is not None and args.max_samples < 1:
@@ -324,6 +335,7 @@ def main() -> None:
         min(16, args.max_new_tokens),
         stop_token_ids,
         args.temperature,
+        args.preallocate_kv_cache,
     )
     engine.draft.spec_generate(
         target=engine.target,
@@ -333,6 +345,12 @@ def main() -> None:
         temperature=args.temperature,
         stochastic_verification_mode=args.verification_mode,
         compile_serial_head=args.compile_sequential_head,
+        target_cache=(
+            make_target_cache(
+                engine.target,
+                warmup_ids.shape[1] + min(16, args.max_new_tokens) + engine.draft.block_size,
+            ) if args.preallocate_kv_cache else None
+        ),
     )
     torch.cuda.empty_cache()
 
@@ -355,6 +373,7 @@ def main() -> None:
                 args.max_new_tokens,
                 stop_token_ids,
                 args.temperature,
+                args.preallocate_kv_cache,
             )
             speculative_ids = engine.draft.spec_generate(
                 target=engine.target,
@@ -364,6 +383,12 @@ def main() -> None:
                 temperature=args.temperature,
                 stochastic_verification_mode=args.verification_mode,
                 compile_serial_head=args.compile_sequential_head,
+                target_cache=(
+                    make_target_cache(
+                        engine.target,
+                        input_ids.shape[1] + args.max_new_tokens + engine.draft.block_size,
+                    ) if args.preallocate_kv_cache else None
+                ),
             )
             generated = speculative_ids[:, input_ids.shape[1] :]
             stats = engine.draft.get_last_decode_stats()
@@ -399,6 +424,8 @@ def main() -> None:
         "turns": len(turns),
         "max_new_tokens": args.max_new_tokens,
         "temperature": args.temperature,
+        "attention_backend": args.attention_backend,
+        "preallocate_kv_cache": args.preallocate_kv_cache,
         "baseline_tokens_per_second": baseline_tokens / max(baseline_seconds, 1e-30),
         "dlite_tokens_per_second": generated_tokens / max(dlite_seconds, 1e-30),
         "token_weighted_speedup": baseline_s_per_token / max(dlite_s_per_token, 1e-30),

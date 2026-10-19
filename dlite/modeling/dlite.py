@@ -511,6 +511,7 @@ class DLiteDraftModel(Qwen3PreTrainedModel):
         verify_block_size: int | None = None,
         stochastic_verification_mode: str = "match",
         compile_serial_head: bool = False,
+        target_cache=None,
     ):
         self.eval()
         stochastic_verification_mode = validate_verification_mode(
@@ -558,7 +559,9 @@ class DLiteDraftModel(Qwen3PreTrainedModel):
             .expand(bsz, -1)
         )
 
-        past_key_values_target = _new_target_cache(target)
+        past_key_values_target = (
+            _new_target_cache(target) if target_cache is None else target_cache
+        )
 
         # Prefill stage (not included in decode wall time)
         output = target(

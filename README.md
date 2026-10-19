@@ -34,9 +34,7 @@ without maintaining a historical draft KV cache. A lightweight sequential head
 restores dependencies within each speculative block, while a two-stage training
 strategy aligns the draft model with the target model.
 
-This repository provides the inference release for Qwen3, including a Python API,
-a CLI, and a JSONL throughput benchmark. Draft checkpoints are available in our
-[Hugging Face collection](https://huggingface.co/collections/SJTU-DAI-Sys/dlite).
+This repository provides the inference release for Qwen3, including a Python API, a CLI, and a JSONL throughput benchmark. We provide a full-stack training and evaluation framework for DLite and other popular speculative decoding methods such as DFlash and DSpark in [LiteSpec](https://github.com/SJTU-DAI-Sys/LiteSpec). Draft checkpoints are available in our [Hugging Face collection](https://huggingface.co/collections/SJTU-DAI-Sys/dlite).
 
 ## ⚡ Performance
 
@@ -89,11 +87,11 @@ DLite draft checkpoints are paired with specific target models. The
 [Hugging Face collection](https://huggingface.co/collections/SJTU-DAI-Sys/dlite)
 currently lists the following repositories:
 
-| Target model | DLite draft checkpoint | Availability |
-| --- | --- | --- |
-| [Qwen3-4B](https://huggingface.co/Qwen/Qwen3-4B) | [SJTU-DAI-Sys/Qwen3-4B-DLite](https://huggingface.co/SJTU-DAI-Sys/Qwen3-4B-DLite) | Weights available |
-| [Qwen3-8B](https://huggingface.co/Qwen/Qwen3-8B) | [SJTU-DAI-Sys/Qwen3-8B-DLite](https://huggingface.co/SJTU-DAI-Sys/Qwen3-8B-DLite) | Weights available |
-| [Qwen3-14B](https://huggingface.co/Qwen/Qwen3-14B) | [SJTU-DAI-Sys/Qwen3-14B-DLite](https://huggingface.co/SJTU-DAI-Sys/Qwen3-14B-DLite) | Weights available |
+| Target model                                         | DLite draft checkpoint                                                                | Availability      |
+| ---------------------------------------------------- | ------------------------------------------------------------------------------------- | ----------------- |
+| [Qwen3-4B](https://huggingface.co/Qwen/Qwen3-4B)     | [SJTU-DAI-Sys/Qwen3-4B-DLite](https://huggingface.co/SJTU-DAI-Sys/Qwen3-4B-DLite)     | Weights available |
+| [Qwen3-8B](https://huggingface.co/Qwen/Qwen3-8B)     | [SJTU-DAI-Sys/Qwen3-8B-DLite](https://huggingface.co/SJTU-DAI-Sys/Qwen3-8B-DLite)     | Weights available |
+| [Qwen3-14B](https://huggingface.co/Qwen/Qwen3-14B)   | [SJTU-DAI-Sys/Qwen3-14B-DLite](https://huggingface.co/SJTU-DAI-Sys/Qwen3-14B-DLite)   | Weights available |
 | [Qwen3.5-4B](https://huggingface.co/Qwen/Qwen3.5-4B) | [SJTU-DAI-Sys/Qwen3.5-4B-DLite](https://huggingface.co/SJTU-DAI-Sys/Qwen3.5-4B-DLite) | Weights available |
 
 The Python API and CLI support Qwen3 and text-only Qwen3.5 targets.
@@ -177,6 +175,9 @@ physical text lines. The input files are not rewritten.
 Verification evaluates each draft block in one target forward pass. The benchmark
 does not compare target and DLite output tokens. Throughput uses each method's
 own generated-token count. Reports are saved to the path supplied with `--output`.
+
+For long-context speed tests, use `--attention-backend flash_attention_2` and
+`--preallocate-kv-cache`.
 
 ## 🗂️ Repository Layout
 
