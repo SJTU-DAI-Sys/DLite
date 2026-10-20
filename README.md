@@ -1,8 +1,32 @@
-![DLite logo](assets/dlite.svg)
+<p align="center">
+  <img src="assets/dlite.svg" alt="DLite logo" width="480">
+</p>
 
-# DLite: History-free Speculative Decoding for Agentic AI
+<h1 align="center">DLite: History-free Speculative Decoding for Agentic AI</h1>
 
-![GitHub repository](https://img.shields.io/badge/GitHub-DLite-181717.svg?logo=github) [](https://huggingface.co/collections/SJTU-DAI-Sys/dlite)![Hugging Face models](https://img.shields.io/badge/Hugging%20Face-Models-FFD21E.svg?logo=huggingface)[ ](https://huggingface.co/collections/SJTU-DAI-Sys/dlite)![Read the paper](https://img.shields.io/badge/Paper-PDF-B31B1B.svg)[ ](https://huggingface.co/collections/SJTU-DAI-Sys/dlite)![Version 0.1.0](https://img.shields.io/badge/Version-v0.1.0-orange.svg)[ ](https://huggingface.co/collections/SJTU-DAI-Sys/dlite)![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)[ ](https://huggingface.co/collections/SJTU-DAI-Sys/dlite)![Issues and feedback](https://img.shields.io/badge/Feedback-Issues-green.svg?logo=github)[ ](https://huggingface.co/collections/SJTU-DAI-Sys/dlite)![Contributions welcome](https://img.shields.io/badge/Contributions-welcome-brightgreen.svg?style=flat)[
+<p align="center">
+  <a href="https://github.com/SJTU-DAI-Sys/DLite">
+    <img src="https://img.shields.io/badge/GitHub-DLite-181717.svg?logo=github" alt="GitHub repository">
+  </a>
+  <a href="https://huggingface.co/collections/SJTU-DAI-Sys/dlite">
+    <img src="https://img.shields.io/badge/Hugging%20Face-Models-FFD21E.svg?logo=huggingface" alt="Hugging Face models">
+  </a>
+  <a href="https://arxiv.org/pdf/2610.23787">
+    <img src="https://img.shields.io/badge/Paper-PDF-B31B1B.svg" alt="Read the paper">
+  </a>
+  <a href="pyproject.toml">
+    <img src="https://img.shields.io/badge/Version-v0.1.0-orange.svg" alt="Version 0.1.0">
+  </a>
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT license">
+  </a>
+  <a href="https://github.com/SJTU-DAI-Sys/DLite/issues">
+    <img src="https://img.shields.io/badge/Feedback-Issues-green.svg?logo=github" alt="Issues and feedback">
+  </a>
+  <a href="https://github.com/SJTU-DAI-Sys/DLite/pulls">
+    <img src="https://img.shields.io/badge/Contributions-welcome-brightgreen.svg?style=flat" alt="Contributions welcome">
+  </a>
+</p>
 
 **DLite** is a history-free speculative decoding framework for agentic AI.
 It reuses contextual hidden states from the target model to predict draft tokens
