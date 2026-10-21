@@ -203,3 +203,13 @@ dlite/
 
 Model classes are available from `dlite.modeling`; normal users only need the
 top-level `DLiteEngine` API.
+
+## Citation
+```bibtex
+@article{xu2026dlite,
+  title={DLite: History-free Speculative Decoding for Agentic AI},
+  author={Xu, Jiaming and Wang, Hanzhen and Zhao, Tianlang and Xiao, Jiewen and Yuan, Chengze and Pan, Jiayi and Zhou, Yongkang and Ye, Jiancai and Wang, Yu and Dai, Guohao},
+  journal={arXiv preprint arXiv:2610.23787},
+  year={2026}
+}
+```
