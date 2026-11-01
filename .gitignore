@@ -7,3 +7,18 @@ dist/
 benchmark-results/
 checkpoints/
 .ruff_cache/
+
+# Local-only LongMemEval source (see thirdparty/README.md)
+/thirdparty/LongMemEval-V2/
+
+# Local experiments, workspace notes, and environment files
+/test/
+/tests/
+/AGENTS.md
+/benchmark.md
+.DS_Store
+.pytest_cache/
+.mypy_cache/
+.env
+.env.*
+!.env.example

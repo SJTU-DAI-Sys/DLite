@@ -1,0 +1,8 @@
+[submodule "thirdparty/BFCL_v4_memory_source"]
+	path = thirdparty/BFCL_v4_memory_source
+	url = https://github.com/ShishirPatil/gorilla.git
+	ignore = untracked
+[submodule "thirdparty/AgentLongBench"]
+	path = thirdparty/AgentLongBench
+	url = https://github.com/euReKa025/AgentLongBench.git
+	ignore = untracked

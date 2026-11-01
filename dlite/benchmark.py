@@ -17,7 +17,6 @@ from .modeling.kv_cache import make_target_cache
 SHORT_TEXT_SAMPLE_COUNTS = {
     "gsm8k": 128,
     "math500": 128,
-    "aime25": 30,
     "humaneval": 164,
     "mbpp": 128,
     "livecodebench": 128,

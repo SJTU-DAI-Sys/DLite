@@ -161,7 +161,7 @@ For stochastic decoding, set a positive `--temperature` and optionally use
 
 ## 📊 Benchmarking
 
-Run a standard dataset alias (or pass a JSONL file with one `prompt` or `turns`
+Set `OUTPUT` to the destination of your choice. Run a standard dataset alias (or pass a JSONL file with one `prompt` or `turns`
 field per line):
 
 ```bash
@@ -169,7 +169,7 @@ dlite-benchmark \
   --target-model /path/to/Qwen3-8B \
   --draft-model /path/to/dlite-student \
   --dataset gsm8k \
-  --output benchmark-results/run.json
+  --output "$OUTPUT"
 ```
 
 LongBench aliases can be resolved with `--dataset-path-file`. The report runs
@@ -184,6 +184,8 @@ own generated-token count. Reports are saved to the path supplied with `--output
 
 For long-context speed tests, use `--attention-backend flash_attention_2` and
 `--preallocate-kv-cache`.
+
+For BFCL V4 `multi_turn_long_context`, AgentLongBench, and the LongMemEval V2 data audit, see the [agentic acceptance-length guide](dlite/agentic/README.md). Use `python -m dlite.agentic` for preparation, serving, generation, and acceptance summaries. Source snapshots and provenance remain in `thirdparty/`; model runs are not yet verified.
 
 ## 🗂️ Repository Layout
 

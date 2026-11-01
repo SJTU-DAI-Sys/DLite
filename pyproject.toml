@@ -21,6 +21,7 @@ Repository = "https://github.com/SJTU-DAI-Sys/DLite"
 Issues = "https://github.com/SJTU-DAI-Sys/DLite/issues"
 
 [project.optional-dependencies]
+agentic = ["requests>=2.31,<3", "fastapi>=0.115,<1", "uvicorn>=0.30,<1", "huggingface-hub>=0.30"]
 flash-attn = ["flash-attn"]
 dev = ["pytest>=8", "ruff>=0.8"]
 benchmark = ["datasets>=3", "huggingface-hub>=0.30"]
@@ -38,6 +39,10 @@ causal-conv1d = [{ requirement = "torch", match-runtime = true }]
 [project.scripts]
 dlite = "dlite.cli:main"
 dlite-benchmark = "dlite.benchmark:main"
+dlite-agentic = "dlite.agentic.cli:main"
 
 [tool.setuptools.packages.find]
 include = ["dlite*"]
+
+[tool.setuptools.package-data]
+"dlite.agentic" = ["README.md", "*.example.json"]

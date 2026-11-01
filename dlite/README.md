@@ -2,6 +2,8 @@
 
 For long-context Transformers speed measurements, enable **FlashAttention, KV preallocation and Sequential-head compilation** for both the autoregressive baseline and DLite:
 
+Set `OUTPUT` to the destination of your choice.
+
 ```bash
 dlite-benchmark \
   --target-model /models/Qwen3-8B \
@@ -12,6 +14,6 @@ dlite-benchmark \
   --compile-sequential-head \
   --preallocate-kv-cache \
   --temperature 0 --max-new-tokens 512 \
-  --output benchmark-results/longbench.json
+  --output "$OUTPUT"
 ```
 
