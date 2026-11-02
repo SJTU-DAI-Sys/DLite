@@ -36,6 +36,19 @@ strategy aligns the draft model with the target model.
 
 This repository provides the inference release for Qwen3 and Qwen3.5, including a Python API, a CLI, and a JSONL throughput benchmark. We provide a full-stack training and evaluation framework for DLite and other popular speculative decoding methods such as DFlash and DSpark in [LiteSpec](https://github.com/SJTU-DAI-Sys/LiteSpec). Draft checkpoints are available in our [Hugging Face collection](https://huggingface.co/collections/SJTU-DAI-Sys/dlite).
 
+
+## 🗺️ Roadmap
+- [x] Release the script for agentic benchmark.
+- [ ] Integrate DLite into [SGLang](https://github.com/sgl-project/sglang).
+- [ ] Integrate DLite into [vLLM](https://github.com/vllm-project/vllm).
+- [ ] Train and release DLite draft models for larger target models.
+
+We welcome developers to help build DLite! Contributions to new model support,
+serving integrations, benchmarks, and inference optimizations are welcome through
+[issues](https://github.com/SJTU-DAI-Sys/DLite/issues) and
+[pull requests](https://github.com/SJTU-DAI-Sys/DLite/pulls).
+
+
 ## ⚡ Performance
 
 
@@ -43,7 +56,7 @@ This repository provides the inference release for Qwen3 and Qwen3.5, including 
 ### Evaluation
 
 The following results are reproduced from **Tables 2 and 3** of the
-[paper](attachments/DLite_Arxiv.pdf). Experiments use **NVIDIA H800 GPUs**,
+[paper](assets/DLite_Arxiv.pdf). Experiments use **NVIDIA H800 GPUs**,
 **Qwen3-4B / Qwen3-8B** target models, and a **speculative block size of K = 7**.
 Bars show end-to-end decoding speedup over vanilla autoregressive decoding
 (**1.0×**, dashed line); higher is better.
@@ -72,13 +85,13 @@ time.
 
 ![DLite short-input demo, animated preview](assets/demo-shortinput.gif)
 
-[▶ Watch the short-input video](attachments/short_with_len.mp4)
+[▶ Watch the short-input video](assets/short_with_len.mp4)
 
 **Long input · 46,704 tokens**
 
 ![DLite long-input demo, animated preview](assets/demo-longinput.gif)
 
-[▶ Watch the long-input video](attachments/long_with_len.mp4)
+[▶ Watch the long-input video](assets/long_with_len.mp4)
 
 The previews above loop automatically. Click a preview or video link to open the
 original MP4.
@@ -100,16 +113,7 @@ currently lists the following repositories:
 
 The Python API and CLI support Qwen3 and text-only Qwen3.5 targets.
 
-## 🗺️ Roadmap
 
-- [ ] Integrate DLite into [SGLang](https://github.com/sgl-project/sglang).
-- [ ] Integrate DLite into [vLLM](https://github.com/vllm-project/vllm).
-- [ ] Train and release DLite draft models for larger target models.
-
-We welcome developers to help build DLite! Contributions to new model support,
-serving integrations, benchmarks, and inference optimizations are welcome through
-[issues](https://github.com/SJTU-DAI-Sys/DLite/issues) and
-[pull requests](https://github.com/SJTU-DAI-Sys/DLite/pulls).
 
 ## 📦 Installation
 
